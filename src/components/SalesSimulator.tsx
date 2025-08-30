@@ -43,7 +43,7 @@ const SalesSimulator: React.FC = () => {
       return this.totalLP >= 100;
     },
     get monthlyEarnings() {
-      return this.isEligible ? commissionPct * this.totalLP * lpValue : 0;
+      return this.isEligible ? commissionPct * (this.totalLP - 100) * lpValue : 0;
     }
   };
 
@@ -199,17 +199,27 @@ const SalesSimulator: React.FC = () => {
                     <Info className="w-5 h-5 text-muted-foreground" />
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Ganho = {(commissionPct * 100)}% × LPs × {formatCurrency(lpValue)} (após 100 LPs)</p>
+                    <p>Ganho = {(commissionPct * 100)}% × (LPs - 100) × {formatCurrency(lpValue)}</p>
+                    <p className="text-xs mt-1">100 LPs são para ativação pessoal</p>
                   </TooltipContent>
                 </Tooltip>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="space-y-2">
                   <div className="text-sm text-muted-foreground">Total de LPs no mês</div>
                   <div className="text-3xl font-bold text-primary">
                     {calculations.totalLP.toLocaleString()} LPs
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">LPs para comissão</div>
+                  <div className="text-2xl font-bold text-accent">
+                    {calculations.isEligible ? (calculations.totalLP - 100).toLocaleString() : 0} LPs
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    (100 LPs para ativação pessoal)
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -246,7 +256,10 @@ const SalesSimulator: React.FC = () => {
           {/* Footer Note */}
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
-              * Simulação baseada em {(commissionPct * 100)}% de comissão sobre LPs × {formatCurrency(lpValue)} após atingir 100 LPs no mês
+              * Simulação baseada em {(commissionPct * 100)}% de comissão sobre (LPs - 100) × {formatCurrency(lpValue)}
+            </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Os primeiros 100 LPs são destinados à ativação pessoal e não geram comissão
             </p>
           </div>
         </div>
