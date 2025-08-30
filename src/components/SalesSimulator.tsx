@@ -5,18 +5,22 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Info, TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';
+import tfPlusImg from '@/assets/tf-plus.png';
+import energyGoStixImg from '@/assets/energy-go-stix.png';
+import riovidaStixImg from '@/assets/riovida-stix.png';
 
 interface Product {
   name: string;
   lpPerUnit: number;
   color: string;
   maxDaily: number;
+  image: string;
 }
 
 const products: Product[] = [
-  { name: 'TF Plus', lpPerUnit: 55, color: 'from-emerald-500 to-emerald-600', maxDaily: 50 },
-  { name: 'Energy Go Stix', lpPerUnit: 18, color: 'from-orange-500 to-orange-600', maxDaily: 100 },
-  { name: 'RioVida Stix', lpPerUnit: 10, color: 'from-purple-500 to-purple-600', maxDaily: 100 },
+  { name: 'TF Plus', lpPerUnit: 55, color: 'from-emerald-500 to-emerald-600', maxDaily: 50, image: tfPlusImg },
+  { name: 'Energy Go Stix', lpPerUnit: 18, color: 'from-orange-500 to-orange-600', maxDaily: 100, image: energyGoStixImg },
+  { name: 'RioVida Stix', lpPerUnit: 10, color: 'from-purple-500 to-purple-600', maxDaily: 100, image: riovidaStixImg },
 ];
 
 const SalesSimulator: React.FC = () => {
@@ -63,12 +67,12 @@ const SalesSimulator: React.FC = () => {
       <div className="min-h-screen bg-gradient-subtle p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+          <div className="text-center mb-12">
+            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-6">
               Simulador de Ganhos 4Life
             </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Simule seus ganhos mensais com vendas digitais. Configure quantos dias trabalhará e suas vendas diárias.
+            <p className="text-muted-foreground text-xl max-w-3xl mx-auto leading-relaxed">
+              Descubra o potencial dos seus ganhos com vendas digitais dos produtos 4Life. Configure seus dias de trabalho e vendas diárias para ver o resultado em tempo real.
             </p>
           </div>
 
@@ -114,24 +118,44 @@ const SalesSimulator: React.FC = () => {
           {/* Daily Sales Section */}
           <Card className="mb-8 shadow-medium">
             <CardHeader>
-              <CardTitle>Vendas Diárias</CardTitle>
+              <CardTitle>Vendas Diárias - Escolha Seus Produtos</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {products.map((product, index) => (
-                  <div key={product.name} className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <Label className="font-medium">{product.name}</Label>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <Info className="w-4 h-4 text-muted-foreground" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{product.lpPerUnit} LPs por unidade</p>
-                        </TooltipContent>
-                      </Tooltip>
+                  <div key={product.name} className="space-y-6 p-6 rounded-lg bg-gradient-to-br from-card to-secondary/5 border border-border/50">
+                    {/* Product Image */}
+                    <div className="flex justify-center">
+                      <div className="w-32 h-32 bg-white rounded-lg shadow-soft flex items-center justify-center overflow-hidden">
+                        <img 
+                          src={product.image} 
+                          alt={product.name}
+                          className="w-full h-full object-contain p-2"
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-3">
+                    
+                    {/* Product Name and Info */}
+                    <div className="text-center space-y-2">
+                      <div className="flex items-center justify-center gap-2">
+                        <h3 className="font-semibold text-lg">{product.name}</h3>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <Info className="w-4 h-4 text-muted-foreground" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{product.lpPerUnit} LPs por unidade</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        {product.lpPerUnit} LPs por unidade
+                      </p>
+                    </div>
+
+                    {/* Slider */}
+                    <div className="space-y-4">
+                      <Label className="text-sm font-medium">Vendas por dia:</Label>
                       <Slider
                         value={[dailySales[index]]}
                         onValueChange={(value) => handleSliderChange(index, value)}
@@ -141,10 +165,13 @@ const SalesSimulator: React.FC = () => {
                       />
                       <div className="flex justify-between text-sm">
                         <span className="text-muted-foreground">0</span>
-                        <span className="font-semibold text-primary">
-                          {dailySales[index]} unid/dia
+                        <span className="font-bold text-2xl text-primary">
+                          {dailySales[index]}
                         </span>
                         <span className="text-muted-foreground">{product.maxDaily}</span>
+                      </div>
+                      <div className="text-center">
+                        <span className="text-sm text-muted-foreground">unidades por dia</span>
                       </div>
                     </div>
                   </div>
@@ -166,12 +193,18 @@ const SalesSimulator: React.FC = () => {
           {/* Product Summary */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {products.map((product, index) => (
-              <Card key={product.name} className="shadow-soft">
+              <Card key={product.name} className="shadow-soft overflow-hidden">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${product.color}`} />
-                    {product.name}
-                  </CardTitle>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-white rounded-lg shadow-soft flex items-center justify-center overflow-hidden flex-shrink-0">
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="w-full h-full object-contain p-1"
+                      />
+                    </div>
+                    <CardTitle className="text-lg">{product.name}</CardTitle>
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex justify-between">
