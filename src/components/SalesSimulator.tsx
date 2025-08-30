@@ -96,7 +96,7 @@ const SalesSimulator: React.FC = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <div className="text-sm text-muted-foreground">Comissão</div>
+                  <div className="text-sm text-muted-foreground">Comissão em LPs</div>
                   <div className="text-2xl font-semibold text-success">
                     {(commissionPct * 100).toFixed(0)}%
                   </div>
