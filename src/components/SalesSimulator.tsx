@@ -15,8 +15,8 @@ interface Product {
 
 const products: Product[] = [
   { name: 'TF Plus', lpPerUnit: 55, color: 'from-emerald-500 to-emerald-600', maxDaily: 50 },
-  { name: 'Energy Go Stix', lpPerUnit: 18, color: 'from-orange-500 to-orange-600', maxDaily: 100 },
-  { name: 'RioVida Stix', lpPerUnit: 10, color: 'from-purple-500 to-purple-600', maxDaily: 100 },
+  { name: 'Energy Go Stix', lpPerUnit: 18, color: 'from-orange-500 to-orange-600', maxDaily: 50 },
+  { name: 'RioVida Stix', lpPerUnit: 10, color: 'from-purple-500 to-purple-600', maxDaily: 50 },
 ];
 
 const SalesSimulator: React.FC = () => {
