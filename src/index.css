@@ -29,7 +29,7 @@ All colors MUST be HSL.
     --accent: 200 95% 45%;
     --accent-foreground: 0 0% 98%;
 
-    --success: 142 76% 36%;
+    --success: 215 84% 30%;
     --success-foreground: 0 0% 98%;
 
     --warning: 35 91% 55%;
@@ -43,7 +43,7 @@ All colors MUST be HSL.
     --ring: 142 76% 36%;
 
     /* Custom tokens for business app */
-    --gradient-primary: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+    --gradient-primary: linear-gradient(135deg, hsl(215 84% 30%), hsl(225 88% 35%));
     --gradient-secondary: linear-gradient(135deg, hsl(200 95% 45%), hsl(220 91% 55%));
     --gradient-subtle: linear-gradient(180deg, hsl(220 30% 98%), hsl(220 20% 96%));
     

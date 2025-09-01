@@ -14,7 +14,7 @@ interface Product {
 }
 
 const products: Product[] = [
-  { name: 'TF Plus', lpPerUnit: 55, color: 'from-emerald-500 to-emerald-600', maxDaily: 50 },
+  { name: 'TF Plus', lpPerUnit: 55, color: 'from-blue-800 to-blue-900', maxDaily: 50 },
   { name: 'Energy Go Stix', lpPerUnit: 18, color: 'from-orange-500 to-orange-600', maxDaily: 50 },
   { name: 'RioVida Stix', lpPerUnit: 10, color: 'from-purple-500 to-purple-600', maxDaily: 50 },
 ];
